@@ -1,4 +1,4 @@
-package ir.sssa.esmbazi
+package ir.sssa.esmbazi.view
 
 import android.os.Bundle
 import android.support.annotation.IdRes

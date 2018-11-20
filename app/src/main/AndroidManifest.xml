@@ -10,14 +10,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".MainActivity"
+                android:name=".view.MainActivity"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-                android:name=".Splash"
+                android:name=".view.Splash"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,17 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".PlayWithAndroid"
+        <activity android:name=".view.PlayWithAndroid"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         >
         </activity>
-        <activity android:name=".F2fActivity"
+        <activity android:name=".view.F2fActivity"
                   android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
-        <activity android:name=".OnlineGameActivity"
+        <activity android:name=".view.OnlineGameActivity"
                   android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
-        <activity android:name=".BluGameActivity"
+        <activity android:name=".view.BluGameActivity"
                   android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
     </application>
