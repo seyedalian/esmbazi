@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">esmBazi</string>
+
+
+    <string name="gameWithAndroid">بازی با اندروید</string>
+    ‌‌<string name="ftfGame">بازی 2 نفره</string>
+    <string name="OnlineGame">بلوتوث</string>
+    <string name="BlueGame">آنلاین</string>
 </resources>
