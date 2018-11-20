@@ -1,5 +1,6 @@
 package ir.sssa.esmbazi.view
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,10 +28,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         if (view != null) {
             if(view.id == R.id.gameWithAndroid){
-
+                startActivity(Intent(this@MainActivity,PlayWithAndroid::class.java))
             }
             if(view.id == R.id.ftfGame){
-
+                startActivity(Intent(this@MainActivity,F2fActivity::class.java))
             }
 
         }
