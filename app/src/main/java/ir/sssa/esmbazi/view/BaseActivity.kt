@@ -7,14 +7,24 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Toast
-
+import ir.sssa.esmbazi.Strong
 
 
 abstract class BaseActivity : AppCompatActivity() {
-
+    var estefadeShodeTAK:String = ""
+    var estefadeShodeTwoTa:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+    protected fun CheckISTrue(name:String):Boolean{
+        if(Strong().names.contains(name)){
+            if(!estefadeShodeTAK.contains(name))
+                estefadeShodeTAK+=name
+            return true
+        }
+        return false
     }
 
 
