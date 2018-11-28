@@ -7,7 +7,7 @@ import java.io.*
 class ShareReference {
 
     //writeFileOnInternalStorage -----------------------------------------------------------------writeFileOnInternalStorage
-    private fun writeFileOnInternalStorage(mcoContext: Context, sFileName: String, sBody: String) {
+     fun writeFileOnInternalStorage(mcoContext: Context, sFileName: String, sBody: String) {
         val file = File(mcoContext.filesDir, "sssa")
         if (!file.exists()) {
             file.mkdir()
@@ -28,7 +28,7 @@ class ShareReference {
     }
 
     //readFileOnInternalStorage -------------------------------------------------readFileOnInternalStorage
-    private fun readFileOnInternalStorage(mcoContext: Context, sFileName: String): String? {
+     fun readFileOnInternalStorage(mcoContext: Context, sFileName: String): String? {
 
 
         //Get the text file
