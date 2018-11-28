@@ -24,8 +24,7 @@ class PlayWithAndroid : BaseActivity() {
         var bitmap = BitmapFactory.decodeResource(resources, id)
         bitmap = Bitmap.createScaledBitmap(bitmap, 300, 700, true)
 
-        val bytearrayoutputstream: ByteArrayOutputStream
-        bytearrayoutputstream = ByteArrayOutputStream()
+        val bytearrayoutputstream= ByteArrayOutputStream()
 
 
 
