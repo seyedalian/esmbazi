@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import ir.sssa.esmbazi.R
 
-class PlayWithAndroid : AppCompatActivity() {
+class PlayWithAndroid : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
