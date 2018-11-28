@@ -24,14 +24,12 @@ class PlayWithAndroid : BaseActivity() {
         var bitmap = BitmapFactory.decodeResource(resources, id)
         bitmap = Bitmap.createScaledBitmap(bitmap, 300, 700, true)
 
-        val BYTE: ByteArray
         val bytearrayoutputstream: ByteArrayOutputStream
         bytearrayoutputstream = ByteArrayOutputStream()
 
 
 
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytearrayoutputstream)
-        BYTE = bytearrayoutputstream.toByteArray()
 
         return BitmapDrawable(resources, bitmap)
 
