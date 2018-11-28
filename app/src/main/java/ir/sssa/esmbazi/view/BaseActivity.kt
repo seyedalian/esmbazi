@@ -11,20 +11,47 @@ import ir.sssa.esmbazi.Strong
 
 
 abstract class BaseActivity : AppCompatActivity() {
-    var estefadeShodeTAK:String = ""
-    var estefadeShodeTwoTa:String = ""
+    var spents = hashSetOf("")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    protected fun CheckISTrue(name:String):Boolean{
-        if(Strong().names.contains(name)){
-            if(!estefadeShodeTAK.contains(name))
-                estefadeShodeTAK+=name
-            return true
+    protected fun checkIsTrue(name:String):Int{
+      val ser = Strong().names.find{s-> s == name}
+
+        if(ser == name){
+            if(spentHaveThis(name)==0){
+                spents.add(name)
+                return 1
+            }else{
+                return 0
+            }
         }
-        return false
+        return -1
+    }
+
+    private fun spentHaveThis(name: String): Int {
+        val inSpent = spents.find { s -> s == name }
+        if (inSpent == name) {
+            return 1
+        } else {
+
+            return 0
+        }
+    }
+
+    protected fun getName(firstOfName:Char):String{
+        val ser = Strong().names.filter { s -> s.first() ==firstOfName }
+        var n:Int =ser.size
+        n--
+        for(i in 0 .. n){
+            if(spentHaveThis(ser[i])==0)
+                return ser[i]
+
+        }
+
+       return "iLoser"
     }
 
 
