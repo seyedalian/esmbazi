@@ -11,6 +11,9 @@ import ir.sssa.esmbazi.R
 import java.io.ByteArrayOutputStream
 
 class PlayWithAndroid : BaseActivity() {
+    override fun init() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

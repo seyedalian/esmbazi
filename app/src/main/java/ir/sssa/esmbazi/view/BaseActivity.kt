@@ -1,5 +1,6 @@
 package ir.sssa.esmbazi.view
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -11,19 +12,75 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.widget.Toast
+import android.widget.*
+import ir.sssa.esmbazi.ListViewsOb.Adapter
+import ir.sssa.esmbazi.ListViewsOb.Condition
+import ir.sssa.esmbazi.ListViewsOb.GMClass
+import ir.sssa.esmbazi.R
 import ir.sssa.esmbazi.Strong
 import java.io.ByteArrayOutputStream
+
+
 
 
 abstract class BaseActivity : AppCompatActivity() {
     //strong spent names
     var spents = hashSetOf("")
+    var star:Int =0
+    var firstOfName:Char = 'ا'
+    var  messageList:List<GMClass> = ArrayList()
+    lateinit var adapter:Adapter
+
+    //TODO you must init  objects in your class
+    lateinit var listView:ListView
+    lateinit var   starText:TextView
+    lateinit var timeText:TextView
+    lateinit var sendText:EditText
+    lateinit var sendIcon:ImageView
+    lateinit var help:TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
+  abstract fun init()
+
+    fun refreshDisplay(context: Context){
+        adapter = Adapter(context, R.layout.item_of_list_game,messageList)
+        listView.adapter =adapter
+    }
+
+    fun relationshipPlayWithAndroid(){
+        starText.text =star.toString()
+        sendIcon.setOnClickListener {
+            if(!sendText.text.isEmpty()){
+                val n:Int=checkIsTrue(sendText.text.toString())
+                if(n==-1){
+                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.FALSE))
+                    toast("من این اسم رو نمی شناسم!")
+                }else if(n==1){
+                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.TRUE))
+                    star++
+                    starText.text =star.toString()
+                    firstOfName=sendText.text.toString().last()
+                    val myName:String = getName(firstOfName)
+                    (messageList as ArrayList).add(GMClass(myName,false,Condition.TRUE))
+                }else if(n==0){
+                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.FALSE))
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+    }
 
     //check your name is true or not
     protected fun checkIsTrue(name:String):Int{
@@ -33,11 +90,13 @@ abstract class BaseActivity : AppCompatActivity() {
             if(spentHasThis(name)==0){
                 spents.add(name)
                 return 1
+                //name is true and is not in spent
             }else{
                 return 0
+                //is in spent
             }
         }
-        return -1
+        return -1 //not in database
     }
     //get name with firstOfName
     protected fun getName(firstOfName:Char):String{
@@ -105,3 +164,5 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
 }
+
+
