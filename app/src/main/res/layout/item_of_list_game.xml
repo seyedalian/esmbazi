@@ -3,6 +3,10 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
               android:layout_height="match_parent"
                 android:orientation="horizontal">
+
+
+
+
     <ProgressBar android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
     android:id="@+id/progress_check_name"/>
@@ -11,6 +15,7 @@
             android:layout_height="50dp"
             app:srcCompat="@drawable/done"
             android:id="@+id/trueImage"
+            android:contentDescription="@string/name"
             android:visibility="gone"
 
     />
@@ -20,14 +25,16 @@
             app:srcCompat="@drawable/cross"
             android:id="@+id/falseImage"
             android:visibility="gone"
+            android:contentDescription="@string/name"
 
     />
     <TextView android:layout_width="match_parent"
               android:layout_height="50dp"
               android:gravity="center"
+              android:id="@+id/textItem"
               android:textColor="@android:color/black"
               android:textSize="25sp"
-              android:text="@string/ftfGame"
+              android:text="@string/name"
     />
 
 </LinearLayout>
