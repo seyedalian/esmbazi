@@ -18,20 +18,5 @@ class PlayWithAndroid : BaseActivity() {
 
     }
 
-    private fun imageInDrawable(@DrawableRes id: Int): Drawable {
 
-
-        var bitmap = BitmapFactory.decodeResource(resources, id)
-        bitmap = Bitmap.createScaledBitmap(bitmap, 300, 700, true)
-
-        val bytearrayoutputstream= ByteArrayOutputStream()
-
-
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytearrayoutputstream)
-
-        return BitmapDrawable(resources, bitmap)
-
-
-    }
 }
