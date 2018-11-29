@@ -17,17 +17,20 @@ import java.io.ByteArrayOutputStream
 
 
 abstract class BaseActivity : AppCompatActivity() {
+    //strong spent names
     var spents = hashSetOf("")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
+
+    //check your name is true or not
     protected fun checkIsTrue(name:String):Int{
       val ser = Strong().names.find{s-> s == name}
 
         if(ser == name){
-            if(spentHaveThis(name)==0){
+            if(spentHasThis(name)==0){
                 spents.add(name)
                 return 1
             }else{
@@ -36,8 +39,21 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         return -1
     }
+    //get name with firstOfName
+    protected fun getName(firstOfName:Char):String{
+        val ser = Strong().names.filter { s -> s.first() ==firstOfName }
+        var n:Int =ser.size
+        n--
+        for(i in 0 .. n){
+            if(spentHasThis(ser[i])==0)
+                return ser[i]
 
-    private fun spentHaveThis(name: String): Int {
+        }
+
+        return "iLoser"
+    }
+    //check spent has a name
+    private fun spentHasThis(name: String): Int {
         val inSpent = spents.find { s -> s == name }
         if (inSpent == name) {
             return 1
@@ -47,20 +63,9 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun getName(firstOfName:Char):String{
-        val ser = Strong().names.filter { s -> s.first() ==firstOfName }
-        var n:Int =ser.size
-        n--
-        for(i in 0 .. n){
-            if(spentHaveThis(ser[i])==0)
-                return ser[i]
-
-        }
-
-       return "iLoser"
-    }
 
 
+//make Toast
     protected fun toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -81,6 +86,7 @@ abstract class BaseActivity : AppCompatActivity() {
             .create()
             .show()
     }
+    //convert imageRes to Drawable object
     private fun imageInDrawable(@DrawableRes id: Int): Drawable {
 
 
