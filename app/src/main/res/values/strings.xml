@@ -6,4 +6,10 @@
     ‌‌<string name="ftfGame">بازی 2 نفره</string>
     <string name="OnlineGame">آنلاین</string>
     <string name="BlueGame">بلوتوث</string>
+
+    <string name="name">اسم</string>
+    <string name="time">زمان</string>
+    <string name="star">تعداد ستاره</string>
+    <string name="send">ارسال</string>
+    <string name="help">کمک</string>
 </resources>
