@@ -27,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     //strong spent names
     var spents = hashSetOf("")
     var star:Int =0
-    var firstOfName:Char = 'ر'
+    var firstOfName:Char  =randChar()
     var  messageList:List<GMClass> = ArrayList()
     lateinit var adapter:Adapter
 
@@ -53,7 +53,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun relationshipPlayWithAndroid(){
-        firstOfName =randChar()
               (messageList as ArrayList).add(GMClass(getName(firstOfName), false, Condition.TRUE))
         sendText.hint = "اسم با  "+firstOfName
         starText.text =star.toString()
@@ -87,11 +86,36 @@ abstract class BaseActivity : AppCompatActivity() {
                     toast("اسم با  "+firstOfName)
                 }
                 sendText.text= null
+                listView.focusSearch(messageList.size-1)
             }
 
         }
 
+        help.setOnClickListener {
+            if(star>=2){
+                star=star-2
+                val myname:String =getName(firstOfName)
+                (messageList as ArrayList).add(GMClass(myname, true, Condition.TRUE))
+                starText.text = star.toString()
+                firstOfName = myname.last()
+                val myName: String = getName(firstOfName)
+                firstOfName=myName.last()
+                if (myName != "iLoser")
+                    (messageList as ArrayList).add(GMClass(myName, false, Condition.TRUE))
+                adapter.notifyDataSetChanged()
+                sendText.hint = "اسم با  "+firstOfName
+
+            }else{
+                //TODO shareRefrence
+                toast("شما امتیازی کافی نداری!")
+                toast("حدقل 2 امتیاز")
+            }
+
+
+        }
+
     }
+
 
     fun randChar():Char{
        val n:Int = Random().nextInt(Strong().horof.size)+1
