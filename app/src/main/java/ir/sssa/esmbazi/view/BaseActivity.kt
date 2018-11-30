@@ -19,15 +19,15 @@ import ir.sssa.esmbazi.ListViewsOb.GMClass
 import ir.sssa.esmbazi.R
 import ir.sssa.esmbazi.Strong
 import java.io.ByteArrayOutputStream
-
-
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 abstract class BaseActivity : AppCompatActivity() {
     //strong spent names
     var spents = hashSetOf("")
     var star:Int =0
-    var firstOfName:Char = 'ا'
+    var firstOfName:Char = 'ر'
     var  messageList:List<GMClass> = ArrayList()
     lateinit var adapter:Adapter
 
@@ -53,40 +53,64 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun relationshipPlayWithAndroid(){
+        firstOfName =randChar()
+              (messageList as ArrayList).add(GMClass(getName(firstOfName), false, Condition.TRUE))
+        sendText.hint = "اسم با  "+firstOfName
         starText.text =star.toString()
         sendIcon.setOnClickListener {
             if(!sendText.text.isEmpty()){
-                val n:Int=checkIsTrue(sendText.text.toString())
-                if(n==-1){
-                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.FALSE))
-                    toast("من این اسم رو نمی شناسم!")
-                }else if(n==1){
-                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.TRUE))
-                    star++
-                    starText.text =star.toString()
-                    firstOfName=sendText.text.toString().last()
-                    val myName:String = getName(firstOfName)
-                    (messageList as ArrayList).add(GMClass(myName,false,Condition.TRUE))
-                }else if(n==0){
-                    (messageList as ArrayList).add(GMClass(sendText.text.toString(),true,Condition.FALSE))
+                if(sendText.text.toString().first()==firstOfName || firstOfName=='ا' && sendText.text.toString().first()=='آ') {
+                    val n: Int = checkIsTrue(sendText.text.toString())
+                    if (n == -1) {
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                        toast("من این اسم رو نمی شناسم!")
+                        adapter.notifyDataSetChanged()
+                    } else if (n == 1) {
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.TRUE))
+                        star++
+                        starText.text = star.toString()
+                        firstOfName = sendText.text.toString().last()
+                        val myName: String = getName(firstOfName)
+                        firstOfName=myName.last()
+                        if (myName != "iLoser")
+                            (messageList as ArrayList).add(GMClass(myName, false, Condition.TRUE))
+                        adapter.notifyDataSetChanged()
+                        sendText.hint = "اسم با  "+firstOfName
+                    } else if (n == 0) {
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                        adapter.notifyDataSetChanged()
+                        toast("قبلا استفاده شده!!")
+                    }
+                }else{
+                    (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                    adapter.notifyDataSetChanged()
+                    toast("اسم با  "+firstOfName)
                 }
-
+                sendText.text= null
             }
 
         }
 
-
-
-
-
-
     }
+
+    fun randChar():Char{
+       val n:Int = Random().nextInt(Strong().horof.size)+1
+        return Strong().horof.elementAt(n)
+    }
+
 
     //check your name is true or not
     protected fun checkIsTrue(name:String):Int{
-      val ser = Strong().names.find{s-> s == name}
-
-        if(ser == name){
+        val first:Char = name.first()
+        val names= Strong().names.filter { s -> s.first() ==first }
+        var find =false
+            for(i in 0 .. names.size-1){
+                if(names[i] ==name){
+                    find =true
+                    break
+                }
+            }
+        if(find){
             if(spentHasThis(name)==0){
                 spents.add(name)
                 return 1
@@ -99,14 +123,16 @@ abstract class BaseActivity : AppCompatActivity() {
         return -1 //not in database
     }
     //get name with firstOfName
-    protected fun getName(firstOfName:Char):String{
-        val ser = Strong().names.filter { s -> s.first() ==firstOfName }
+    protected fun getName(first:Char):String{
+        val ser = Strong().names.filter { s -> s.first() ==first }
         var n:Int =ser.size
         n--
         for(i in 0 .. n){
-            if(spentHasThis(ser[i])==0)
+            if(spentHasThis(ser[i])==0) {
+                firstOfName = ser[i].last()
+                spents.add(ser[i])
                 return ser[i]
-
+            }
         }
 
         return "iLoser"
