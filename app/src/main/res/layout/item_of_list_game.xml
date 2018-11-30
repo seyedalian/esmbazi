@@ -10,6 +10,7 @@
 
     <ProgressBar android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:layout_weight="1"
     android:id="@+id/progress_check_name"/>
     <ImageView
             android:layout_width="50dp"
@@ -18,6 +19,7 @@
             android:id="@+id/trueImage"
             android:contentDescription="@string/name"
             android:visibility="gone"
+            android:layout_weight="1"
 
     />
     <ImageView
@@ -27,6 +29,7 @@
             android:id="@+id/falseImage"
             android:visibility="gone"
             android:contentDescription="@string/name"
+            android:layout_weight="1"
 
     />
     <TextView android:layout_width="match_parent"
@@ -36,7 +39,32 @@
               android:textColor="@android:color/black"
               android:textSize="25sp"
               android:text="@string/name"
+              android:background="@drawable/message_shap_player"
+              android:layout_weight="1"
     />
+    <ProgressBar android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:id="@+id/progress_check_nameR"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/done"
+            android:id="@+id/trueImageR"
+            android:contentDescription="@string/name"
+            android:visibility="gone"
+            android:layout_weight="1"
 
+    />
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/cross"
+            android:id="@+id/falseImageR"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:contentDescription="@string/name"
+
+    />
 
 </LinearLayout>
