@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
@@ -17,6 +18,7 @@ import ir.sssa.esmbazi.ListViewsOb.Adapter
 import ir.sssa.esmbazi.ListViewsOb.Condition
 import ir.sssa.esmbazi.ListViewsOb.GMClass
 import ir.sssa.esmbazi.R
+import ir.sssa.esmbazi.ShareReference
 import ir.sssa.esmbazi.Strong
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -30,6 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
     var firstOfName:Char  =randChar()
     var  messageList:List<GMClass> = ArrayList()
     lateinit var adapter:Adapter
+    val NAME_FILE_STAR:String ="emtiaz"
 
     //TODO you must init  objects in your class
     lateinit var listView:ListView
@@ -38,6 +41,9 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var sendText:EditText
     lateinit var sendIcon:ImageView
     lateinit var help:TextView
+    lateinit var starIcon: ImageView
+    lateinit var timeIcon: ImageView
+    lateinit var bluetoothTextView:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,50 +58,25 @@ abstract class BaseActivity : AppCompatActivity() {
         listView.adapter =adapter
     }
 
-    fun relationshipPlayWithAndroid(){
-              (messageList as ArrayList).add(GMClass(getName(firstOfName), false, Condition.TRUE))
+    fun relationship(context: Context){
+        star = getStarFromFile(context)
         sendText.hint = "اسم با  "+firstOfName
         starText.text =star.toString()
-        sendIcon.setOnClickListener {
-            if(!sendText.text.isEmpty()){
-                if(sendText.text.toString().first()==firstOfName || firstOfName=='ا' && sendText.text.toString().first()=='آ') {
-                    val n: Int = checkIsTrue(sendText.text.toString())
-                    if (n == -1) {
-                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
-                        toast("من این اسم رو نمی شناسم!")
-                        adapter.notifyDataSetChanged()
-                    } else if (n == 1) {
-                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.TRUE))
-                        star++
-                        starText.text = star.toString()
-                        firstOfName = sendText.text.toString().last()
-                        val myName: String = getName(firstOfName)
-                        firstOfName=myName.last()
-                        if (myName != "iLoser")
-                            (messageList as ArrayList).add(GMClass(myName, false, Condition.TRUE))
-                        adapter.notifyDataSetChanged()
-                        sendText.hint = "اسم با  "+firstOfName
-                    } else if (n == 0) {
-                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
-                        adapter.notifyDataSetChanged()
-                        toast("قبلا استفاده شده!!")
-                    }
-                }else{
-                    (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
-                    adapter.notifyDataSetChanged()
-                    toast("اسم با  "+firstOfName)
-                }
-                sendText.text= null
-                listView.focusSearch(messageList.size-1)
-            }
 
-        }
 
         help.setOnClickListener {
             if(star>=2){
-                star=star-2
+
                 val myname:String =getName(firstOfName)
-                (messageList as ArrayList).add(GMClass(myname, true, Condition.TRUE))
+                if(myname !="iLoser") {
+                    (messageList as ArrayList).add(GMClass(myname, true, Condition.TRUE))
+                    star=star-2
+                    startToFile(context)
+                }
+                else {
+                    toast("من اسمی ندارم!")
+                    finish()
+                }
                 starText.text = star.toString()
                 firstOfName = myname.last()
                 val myName: String = getName(firstOfName)
@@ -113,6 +94,24 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
         }
+
+    }
+
+    fun startToFile(context: Context) {
+        ShareReference().writeFileOnInternalStorage(context, NAME_FILE_STAR, star.toString() +",s" )
+    }
+
+    private fun getStarFromFile(context: Context): Int {
+        val s =ShareReference().readFileOnInternalStorage(context,NAME_FILE_STAR)
+         var int= 0
+        if(s!=null) {
+            val ss = s.split(",")
+            int = ss[0].toInt()
+
+        }else{
+            startToFile(context)
+        }
+        return int
 
     }
 
