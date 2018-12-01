@@ -116,6 +116,14 @@ class Adapter(context: Context,resource: Int,items:List<GMClass>):
 
 
             }
+            if(item.isTrue ==Condition.NOONE){
+                processR.visibility =View.GONE
+                trueImageR.visibility =View.GONE
+                falseImageR.visibility =View.GONE
+                process.visibility =View.GONE
+                trueImage.visibility =View.GONE
+                falseImage.visibility =View.GONE
+            }
 
 
             textItem.text = item.text
