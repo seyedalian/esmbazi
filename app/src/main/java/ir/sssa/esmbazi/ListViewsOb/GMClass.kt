@@ -7,5 +7,5 @@ class GMClass(text:String,who:Boolean,isTrue:Condition){
     val who:Boolean =who
 }
 enum class Condition {
-    TRUE,FALSE,UNKNOWN
+    TRUE,FALSE,UNKNOWN ,NOONE
 }
