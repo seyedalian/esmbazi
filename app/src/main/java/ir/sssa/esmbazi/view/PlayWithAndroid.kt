@@ -1,14 +1,9 @@
 package ir.sssa.esmbazi.view
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.annotation.DrawableRes
-import android.support.constraint.ConstraintLayout
+import ir.sssa.esmbazi.ListViewsOb.Condition
+import ir.sssa.esmbazi.ListViewsOb.GMClass
 import ir.sssa.esmbazi.R
-import java.io.ByteArrayOutputStream
 
 class PlayWithAndroid : BaseActivity() {
     override fun init() {
@@ -26,7 +21,58 @@ class PlayWithAndroid : BaseActivity() {
         setContentView(R.layout.activity_play_with_android)
         init()
         refreshDisplay(this)
-        relationshipPlayWithAndroid()
+        relationship(this)
+
+        (messageList as ArrayList).add(GMClass(getName(firstOfName), false, Condition.TRUE))
+        sendText.hint = "اسم با  "+firstOfName
+        sendIcon.setOnClickListener {
+            if(!sendText.text.isEmpty()){
+                //check first of name is = firstOfName
+                if(sendText.text.toString().first()==firstOfName || firstOfName=='ا' && sendText.text.toString().first()=='آ') {
+                    //check Condition of check name n==-1 main is not in dataBase
+                    // n==1 main name is true and not in spent  and n==0 name is in spent
+
+                    val n: Int = checkIsTrue(sendText.text.toString())
+                    if (n == -1) {
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                        toast("من این اسم رو نمی شناسم!")
+                        adapter.notifyDataSetChanged()
+                    } else if (n == 1) {
+                        //name is true so write in listView
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.TRUE))
+                        //increase start number
+                        star++
+                        //write start  on  InternalStorage for future
+                        startToFile(this)
+                        //write in startText
+                        starText.text = star.toString()
+                        //change firstOfName last of true name
+                        firstOfName = sendText.text.toString().last()
+                        val myName: String = getName(firstOfName)
+                        firstOfName=myName.last()
+                        if (myName != "iLoser")
+                            (messageList as ArrayList).add(GMClass(myName, false, Condition.TRUE))
+                        else {
+                            toast("من باختم!")
+                            finish()
+                        }
+                        adapter.notifyDataSetChanged()
+                        sendText.hint = "اسم با  "+firstOfName
+                    } else if (n == 0) {
+                        (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                        adapter.notifyDataSetChanged()
+                        toast("قبلا استفاده شده!!")
+                    }
+                }else{
+                    (messageList as ArrayList).add(GMClass(sendText.text.toString(), true, Condition.FALSE))
+                    adapter.notifyDataSetChanged()
+                    toast("اسم با  "+firstOfName)
+                }
+                sendText.setText("")
+                listView.setSelection(messageList.lastIndex)
+            }
+
+        }
     }
 
 
