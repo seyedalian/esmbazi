@@ -58,14 +58,11 @@ class ConnectToBluetooth : BaseActivity() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         if (bluetoothAdapter == null) {
-            AlertDialog.Builder(this)
-                .setTitle("عدم سازگاری")
-                .setMessage("دستگاه شما فاقد قطعه بلوتوث است")
-                .setPositiveButton("خارج شدن",null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show()
+            toast("دستگاه شما فاقد قطعه بلوتوث است")
+
             finish()
         }
+
 
 
     }
