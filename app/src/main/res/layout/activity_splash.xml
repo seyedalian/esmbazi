@@ -6,5 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.Splash">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="341dp"
 
+            app:srcCompat="@drawable/icon_name" android:id="@+id/iconInSplash"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.405" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
 </android.support.constraint.ConstraintLayout>
